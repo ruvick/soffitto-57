@@ -1,0 +1,57 @@
+{
+  "name": "televyshka",
+  "version": "1.0.1",
+  "description": "televyshka",
+  "main": "index.php",
+  "scripts": {
+    "test": "editorconfig-checker",
+    "clear_r": "ssh xle2012z_televyshka@xle2012z.beget.tech \"rm tele-azs.ru//public_html/wp-content/themes/televyshka/*.*\"",
+    "send_r": "scp -C *.php *.png *.css xle2012z_televyshka@xle2012z.beget.tech:tele-azs.ru//public_html/wp-content/themes/televyshka/",
+    "send_ms": "scp -C *.css xle2012z_televyshka@xle2012z.beget.tech:tele-azs.ru//public_html/wp-content/themes/televyshka/",
+    "send_one": "scp -C page-pageresult.php xle2012z_televyshka@xle2012z.beget.tech:tele-azs.ru//public_html/wp-content/themes/televyshka/",
+    "send_head": "scp -C header.php xle2012z_televyshka@xle2012z.beget.tech:tele-azs.ru//public_html/wp-content/themes/televyshka/",
+    "send_cat": "scp -C category.php xle2012z_televyshka@xle2012z.beget.tech:tele-azs.ru//public_html/wp-content/themes/televyshka/",
+    "send_singl": "scp -C single.php xle2012z_televyshka@xle2012z.beget.tech:tele-azs.ru//public_html/wp-content/themes/televyshka/",
+    "send_index": "scp -C index.php xle2012z_televyshka@xle2012z.beget.tech:tele-azs.ru//public_html/wp-content/themes/televyshka/",
+    "send_func": "scp -C functions.php xle2012z_televyshka@xle2012z.beget.tech:tele-azs.ru//public_html/wp-content/themes/televyshka/",
+    "send_futt": "scp -C footer.php xle2012z_televyshka@xle2012z.beget.tech:tele-azs.ru//public_html/wp-content/themes/televyshka/",
+    "mk_part_carbon": "ssh xle2012z_televyshka@xle2012z.beget.tech \"mkdir -p tele-azs.ru//public_html/wp-content/themes/televyshka/inc\"",
+    "send_carbon": "scp -C -r inc xle2012z_televyshka@xle2012z.beget.tech:tele-azs.ru//public_html/wp-content/themes/televyshka/",
+    "send_carbon_fild": "scp -C -r inc/custom-fields-options xle2012z_televyshka@xle2012z.beget.tech:tele-azs.ru//public_html/wp-content/themes/televyshka/inc/",
+    "mk_part_dir": "ssh xle2012z_televyshka@xle2012z.beget.tech \"mkdir -p tele-azs.ru//public_html/wp-content/themes/televyshka/template-parts\"",
+    "send_part": "scp -C -r template-parts xle2012z_televyshka@xle2012z.beget.tech:tele-azs.ru//public_html/wp-content/themes/televyshka/",
+    "mk_part_img": "ssh xle2012z_televyshka@xle2012z.beget.tech \"mkdir -p tele-azs.ru//public_html/wp-content/themes/televyshka/img\"",
+    "send_img": "scp -r img xle2012z_televyshka@xle2012z.beget.tech:tele-azs.ru//public_html/wp-content/themes/televyshka/",
+    "mk_part_images": "ssh xle2012z_televyshka@xle2012z.beget.tech \"mkdir -p tele-azs.ru//public_html/wp-content/themes/televyshka/images\"",
+    "send_images": "scp -r images *.svg xle2012z_televyshka@xle2012z.beget.tech:tele-azs.ru//public_html/wp-content/themes/televyshka/",
+    "mk_part_js": "ssh xle2012z_televyshka@xle2012z.beget.tech \"mkdir -p tele-azs.ru//public_html/wp-content/themes/televyshka/js\"",
+    "send_js": "scp -r js xle2012z_televyshka@xle2012z.beget.tech:tele-azs.ru//public_html/wp-content/themes/televyshka/",
+    "mk_part_css": "ssh xle2012z_televyshka@xle2012z.beget.tech \"mkdir -p tele-azs.ru//public_html/wp-content/themes/televyshka/css\"",
+    "send_css": "scp -C -r css xle2012z_televyshka@xle2012z.beget.tech:tele-azs.ru//public_html/wp-content/themes/televyshka/",
+    "mk_part_fonts": "ssh xle2012z_televyshka@xle2012z.beget.tech \"mkdir -p tele-azs.ru//public_html/wp-content/themes/televyshka/fonts\"",
+    "send_fonts": "scp -C -r xle2012z_televyshka@xle2012z.beget.tech:tele-azs.ru//public_html/wp-content/themes/televyshka/",
+    "group_media": "group-css-media-queries css/main.css css/g_main.css",
+    "send_all": "npm run send_r & npm run send_css & npm run send_part & npm run send_img & npm run send_image & npm run send_js & npm run send_fonts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ruvick/televyshka_wp.git"
+  },
+  "keywords": [
+    "wp",
+    "WordPress"
+  ],
+  "author": "ruvick",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ruvick/televyshka_wp/issues"
+  },
+  "homepage": "https://github.com/ruvick/televyshka_wp#readme",
+  "dependencies": {
+    "editorconfig-checker": "^3.1.0",
+    "group-css-media-queries": "^1.4.1",
+    "postcss-cli": "^7.1.2",
+    "postcss-csso": "^4.0.0",
+    "postcss-import": "^12.0.1"
+  }
+}
