@@ -22,17 +22,38 @@
 	        </div>
 		<?php } ?>
 
-		<div class="subfooter <?php if(isset($archi_option['footer_layout']) and $archi_option['footer_layout']=="footer2" ){echo 'padtop80 padbottom80 footer-2';} ?>">
+		<div class="footer__navigation subfooter padtop80 padbottom80 footer-2">
 			<div class="container">
 				<div class="row">
-					<?php if(isset($archi_option['footer_layout']) and $archi_option['footer_layout']=="footer2" ){ ?>
-						<div class="col-md-3">
+
+				<div class="footer__inner">
+
+				<?php if(isset($archi_option['footer_layout']) and $archi_option['footer_layout']=="footer2" ){ ?>
+						<div class="footer__logo">
 	                        <img src="<?php echo esc_url($archi_option['logo_footer']['url']); ?>" class="logo-small" alt=""><br>
 	                    </div>
 					<?php } ?>
-					<div class="col-md-6">
-						<?php echo htmlspecialchars_decode( do_shortcode( $archi_option['footer_text'] ) ); ?>                     
+
+					<div class="footer__menu">
+					<?php wp_nav_menu( array('theme_location' => 'primary','menu_class' => 'footer__menu-list',
+						'container_class' => 'footer__menu-list','container' => false )); ?> 
+					</div>   
+
 					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<div class="subfooter <?php if(isset($archi_option['footer_layout']) and $archi_option['footer_layout']=="footer2" ){echo 'padtop80 padbottom80 footer-2';} ?>">
+			<div class="container">
+				<div class="row">
+
+				<div class="footer__policy">
+					<!-- <div class="col-md-6"> -->
+						<?php echo htmlspecialchars_decode( do_shortcode( $archi_option['footer_text'] ) ); ?>                      
+					<!-- </div> -->
+				</div>
 
 					<?php if($archi_option['switch_footer_social']!=false){ ?>
 						<div class="<?php if(isset($archi_option['footer_layout']) and $archi_option['footer_layout']=='footer2' ){echo 'col-md-3';}else{echo 'col-md-6';} ?> text-right">
