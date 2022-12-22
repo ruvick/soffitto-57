@@ -8379,3 +8379,33 @@ ul.sidebar-style-2 li.active a {
 .footer__policy {
     text-align: center;
 }
+
+@media screen and (max-width: 768px) {
+    .footer__inner {
+        flex-wrap: wrap;
+    }
+
+    .footer__menu-list .menu-item {
+        margin-bottom: 20px;
+    }
+}
+
+@media screen and (max-width: 630px) {
+    .footer__menu-list {
+        padding: 0;
+    }
+
+    .footer__menu-list .menu-item {
+        flex: 0 1 100%;
+        margin-bottom: 15px;
+        text-align: left;
+    }
+
+    .footer__menu-list .menu-item a {
+        font-size: 16px;
+    }
+
+    .footer__menu-list .sub-menu .menu-item a {
+        font-size: 12px;
+    }
+}
