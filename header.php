@@ -44,7 +44,7 @@
                         </div>    
                     <?php } ?>
 <!-- <?php do_action('wpcallback_button'); ?> -->
-<a href="#callback" class="_popup-link">Обратный звонок</a>
+<a href="#callback" class="callback-btn callback-btn-green _popup-link">Обратный звонок</a>
                     <?php if($archi_option['topbar_col_right'] != 'none'){ ?>
                         <div class="col-md-<?php echo esc_attr($archi_option['topbar_col_right']); ?>"> 
                             <?php if($archi_option['switch_header_social']!=false){ ?>
