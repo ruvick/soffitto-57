@@ -8,6 +8,17 @@ global $archi_option;
  * @package archi
  */
 
+ // Подключение стилей и nonce для Ajax в админку 
+add_action('admin_head', 'archi_theme_admin');
+function archi_theme_admin()
+{
+	wp_enqueue_style("style-adm", get_template_directory_uri() . "/style-admin.css");
+
+	wp_localize_script('jquery', 'allAjax', array(
+		'nonce'   => wp_create_nonce('NEHERTUTLAZIT')
+	));
+}
+
 if ( ! class_exists( 'ReduxFramewrk' ) ) {
     require_once( get_template_directory() . '/framework/sample-config.php' );
     function removeDemoModeLink() { // Be sure to rename this function to something more unique
@@ -191,6 +202,7 @@ function archi_fonts_url() {
     return esc_url_raw( $fonts_url );
 }
 
+
 /**
  * Enqueue scripts and styles.
  */
@@ -258,6 +270,8 @@ if($archi_option['preload-switch']==true){
     }
 }
 
+wp_enqueue_script("archi-popup", get_template_directory_uri()."/js/popup.js",array(),false,true);  
+wp_enqueue_script("archi-sender", get_template_directory_uri()."/js/sender.js",array(),false,true); 
 wp_enqueue_script( "archi-maps-js", "$protocol://maps.googleapis.com/maps/api/js?key=$gmap_api",array('jquery'),false,false);
 wp_enqueue_script("archi-maplace", get_template_directory_uri()."/js/maplace.js",array(),false,false);  
 
@@ -265,7 +279,8 @@ wp_enqueue_script("archi-PageScroll2id", get_template_directory_uri()."/js/jquer
 wp_enqueue_script("archi-bootstrap-js", get_template_directory_uri()."/js/bootstrap.min.js",array(),false,true);
 wp_enqueue_script("isotope", get_template_directory_uri()."/js/jquery.isotope.min.js",array(),false,true);
 
-wp_enqueue_script("archi-total", get_template_directory_uri()."/js/total1.js",array(),false,true);    
+wp_enqueue_script("archi-total", get_template_directory_uri()."/js/total1.js",array(),false,true);      
+
 
 if(!is_page_template('page-templates/template-coming-soon-page.php') || !is_page_template('page-templates/template-coming-soon-video.php')){ 
     wp_enqueue_script("archi-classie", get_template_directory_uri()."/js/classie.js",array(),false,true);
@@ -278,8 +293,75 @@ wp_enqueue_script("calc-js", get_template_directory_uri()."/js/calc.js",array(),
 
 wp_enqueue_script("archi-custom", get_template_directory_uri()."/js/designesia.js",array(),false,true);
 
+wp_localize_script('sender', 'allAjax', array(
+    'ajaxurl' => admin_url('admin-ajax.php'),
+    'nonce'   => wp_create_nonce('NEHERTUTLAZIT')
+));
+
 }
 add_action( 'wp_enqueue_scripts', 'archi_theme_scripts_styles');
+
+
+// Заготовка для вызова ajax
+add_action('wp_ajax_aj_fnc', 'aj_fnc');
+add_action('wp_ajax_nopriv_aj_fnc', 'aj_fnc');
+
+function aj_fnc()
+{
+	if (empty($_REQUEST['nonce'])) {
+		wp_die('0');
+	}
+
+	if (check_ajax_referer('NEHERTUTLAZIT', 'nonce', false)) {
+	} else {
+		wp_die('НО-НО-НО!', '', 403);
+	}
+}
+
+
+// // Универсальный отправщик
+// add_action('wp_ajax_newsendr', 'newsendr');
+// add_action('wp_ajax_nopriv_newsendr', 'newsendr');
+
+// function newsendr()
+// {
+// 	if (empty($_REQUEST['nonce'])) {
+// 		wp_die('0');
+// 	}
+
+// 	if (check_ajax_referer('NEHERTUTLAZIT', 'nonce', false)) {
+       
+// 		$send_adr = carbon_get_theme_option('email_send');
+	
+// 		$subj = "Сообщение с сайта";
+// 		$content = "<h2>Новое сообщение с сайта</h2>";
+// 		$content_tg = "Новое сообщение с сайта\n\r";
+
+// 		for ($i =0; $i < count($_REQUEST["fildname"]); $i++) {
+// 			$content .= $_REQUEST["fildval"][$i].": <strong>".$_REQUEST[$_REQUEST["fildname"][$i]]."</strong><br/>";
+// 			$content_tg .= $_REQUEST["fildval"][$i].": ".$_REQUEST[$_REQUEST["fildname"][$i]]."\n\r";
+// 		}
+
+// 		message_to_telegram($content_tg);
+
+// 		$headers = array(
+// 			'From: Soffitto-57 <noreply@mirturizma46.ru>',
+// 			'content-type: text/html',
+// 		);
+
+// 		add_filter('wp_mail_content_type', create_function('', 'return "text/html";'));
+// 		if (wp_mail($send_adr, $subj, $content, $headers))
+// 		{
+// 			wp_die(true);
+// 		} else {
+// 			wp_die("NO ОК", '', 403 );
+// 		}
+
+// 	} else {
+// 		wp_die('НО-НО-НО!', '', 403);
+// 	}
+// }
+
 
 if(!function_exists('archi_custom_frontend_scripts')){
     function archi_custom_frontend_scripts(){
@@ -453,4 +535,10 @@ require get_template_directory() . '/framework/wp_bootstrap_navwalker.php';
 require get_template_directory() . '/framework/BFI_Thumb.php';
 
 add_filter ( 'show_admin_bar', '__return_false');
+
+
+include "sender.php"
+
+?>
+
 

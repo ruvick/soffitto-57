@@ -23,13 +23,14 @@
 	
 <?php wp_head(); ?>
 </head>
-<body <?php body_class(); ?> >
+<body <?php body_class(); ?> > 
 <?php 
     if(isset($archi_option['header_layout']) and $archi_option['header_layout']!="htop_page" ){
         get_template_part('framework/headers/header-sidenav'); 
     }else{  
 ?>
-<div id="wrapper">
+<div id="wrapper" class="wrapper">
+<? include "modal-win.php";?>
     <!-- header begin -->
     <header class="<?php archi_header_class(); ?>"> 
     <?php if($archi_option['topbar-allpage']!=false){ ?>        
@@ -42,7 +43,8 @@
                             <?php echo htmlspecialchars_decode( do_shortcode( $archi_option['info_list_text'] ) ); ?>                        
                         </div>    
                     <?php } ?>
-<?php do_action('wpcallback_button'); ?>
+<!-- <?php do_action('wpcallback_button'); ?> -->
+<a href="#callback" class="_popup-link">Обратный звонок</a>
                     <?php if($archi_option['topbar_col_right'] != 'none'){ ?>
                         <div class="col-md-<?php echo esc_attr($archi_option['topbar_col_right']); ?>"> 
                             <?php if($archi_option['switch_header_social']!=false){ ?>
