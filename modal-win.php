@@ -22,7 +22,7 @@
 
 							<div class="form__line">
 								<input type="hidden" name = "form_name" data-valuem = "Название формы" value = "Заказать звонок">
-								<input type="hidden" name = "form_address" data-valuem = "Адрес страницы" value = "<? echo (is_home())?"https://forestsea.ru/kontakty":get_the_permalink()?>">
+								<input type="hidden" name = "form_address" data-valuem = "Адрес страницы" value = "<? echo (is_home())?"https://soffitto-57.ru":get_the_permalink()?>">
 								<input required type="text" name="name" data-valuem = "Имя" placeholder="Имя*" class="popup__form-input input">
 								<input required type="tel" name="tel" data-valuem = "Телефон" placeholder="Телефон*" class="popup__form-input input _phone"> 
 							</div>

@@ -1,4 +1,16 @@
 <?php
+
+// Подключение стилей и nonce для Ajax в админку 
+add_action('admin_head', 'archi_theme_admin');
+    function archi_theme_admin()
+{
+	wp_enqueue_style("style-adm", get_template_directory_uri() . "/style-admin.css");
+
+	wp_localize_script('jquery', 'allAjax', array(
+		'nonce'   => wp_create_nonce('NEHERTUTLAZIT')
+	));
+}
+
 global $archi_option;
 /**
  * Redux Theme functions and definitions.
@@ -7,17 +19,6 @@ global $archi_option;
  *
  * @package archi
  */
-
- // Подключение стилей и nonce для Ajax в админку 
-add_action('admin_head', 'archi_theme_admin');
-function archi_theme_admin()
-{
-	wp_enqueue_style("style-adm", get_template_directory_uri() . "/style-admin.css");
-
-	wp_localize_script('jquery', 'allAjax', array(
-		'nonce'   => wp_create_nonce('NEHERTUTLAZIT')
-	));
-}
 
 if ( ! class_exists( 'ReduxFramewrk' ) ) {
     require_once( get_template_directory() . '/framework/sample-config.php' );
@@ -31,8 +32,10 @@ if ( ! class_exists( 'ReduxFramewrk' ) ) {
     }
     add_action('init', 'removeDemoModeLink');
 }
+
 function wph_admin_footer_text () {
 }
+
 add_filter('admin_footer_text', 'wph_admin_footer_text');
 //Theme Set up:
 function archi_theme_setup() {
@@ -271,7 +274,6 @@ if($archi_option['preload-switch']==true){
 }
 
 wp_enqueue_script("archi-popup", get_template_directory_uri()."/js/popup.js",array(),false,true);  
-wp_enqueue_script("archi-sender", get_template_directory_uri()."/js/sender.js",array(),false,true); 
 wp_enqueue_script( "archi-maps-js", "$protocol://maps.googleapis.com/maps/api/js?key=$gmap_api",array('jquery'),false,false);
 wp_enqueue_script("archi-maplace", get_template_directory_uri()."/js/maplace.js",array(),false,false);  
 
@@ -286,85 +288,25 @@ if(!is_page_template('page-templates/template-coming-soon-page.php') || !is_page
     wp_enqueue_script("archi-classie", get_template_directory_uri()."/js/classie.js",array(),false,true);
 }
 
-if($archi_option['animate-switch']==true){
+if($archi_option['animate-switch']==true) {
     wp_enqueue_script("archi-wow-js", get_template_directory_uri()."/js/wow.min.js",array(),false,true);
 }
-wp_enqueue_script("calc-js", get_template_directory_uri()."/js/calc.js",array(),false,true);
 
+wp_enqueue_script("calc-js", get_template_directory_uri()."/js/calc.js",array(),false,true);
+wp_enqueue_script("archi-sender", get_template_directory_uri()."/js/sender.js",array(),false,true); 
 wp_enqueue_script("archi-custom", get_template_directory_uri()."/js/designesia.js",array(),false,true);
 
-wp_localize_script('sender', 'allAjax', array(
+wp_localize_script('archi-sender','allAjax', array(
     'ajaxurl' => admin_url('admin-ajax.php'),
     'nonce'   => wp_create_nonce('NEHERTUTLAZIT')
 ));
 
 }
+
 add_action( 'wp_enqueue_scripts', 'archi_theme_scripts_styles');
 
-
-// Заготовка для вызова ajax
-add_action('wp_ajax_aj_fnc', 'aj_fnc');
-add_action('wp_ajax_nopriv_aj_fnc', 'aj_fnc');
-
-function aj_fnc()
-{
-	if (empty($_REQUEST['nonce'])) {
-		wp_die('0');
-	}
-
-	if (check_ajax_referer('NEHERTUTLAZIT', 'nonce', false)) {
-	} else {
-		wp_die('НО-НО-НО!', '', 403);
-	}
-}
-
-
-// // Универсальный отправщик
-// add_action('wp_ajax_newsendr', 'newsendr');
-// add_action('wp_ajax_nopriv_newsendr', 'newsendr');
-
-// function newsendr()
-// {
-// 	if (empty($_REQUEST['nonce'])) {
-// 		wp_die('0');
-// 	}
-
-// 	if (check_ajax_referer('NEHERTUTLAZIT', 'nonce', false)) {
-       
-// 		$send_adr = carbon_get_theme_option('email_send');
-	
-// 		$subj = "Сообщение с сайта";
-// 		$content = "<h2>Новое сообщение с сайта</h2>";
-// 		$content_tg = "Новое сообщение с сайта\n\r";
-
-// 		for ($i =0; $i < count($_REQUEST["fildname"]); $i++) {
-// 			$content .= $_REQUEST["fildval"][$i].": <strong>".$_REQUEST[$_REQUEST["fildname"][$i]]."</strong><br/>";
-// 			$content_tg .= $_REQUEST["fildval"][$i].": ".$_REQUEST[$_REQUEST["fildname"][$i]]."\n\r";
-// 		}
-
-// 		message_to_telegram($content_tg);
-
-// 		$headers = array(
-// 			'From: Soffitto-57 <noreply@mirturizma46.ru>',
-// 			'content-type: text/html',
-// 		);
-
-// 		add_filter('wp_mail_content_type', create_function('', 'return "text/html";'));
-// 		if (wp_mail($send_adr, $subj, $content, $headers))
-// 		{
-// 			wp_die(true);
-// 		} else {
-// 			wp_die("NO ОК", '', 403 );
-// 		}
-
-// 	} else {
-// 		wp_die('НО-НО-НО!', '', 403);
-// 	}
-// }
-
-
-if(!function_exists('archi_custom_frontend_scripts')){
-    function archi_custom_frontend_scripts(){
+if(!function_exists('archi_custom_frontend_scripts')) {
+    function archi_custom_frontend_scripts() {
         global $archi_option; 
         ?>
         <script type="text/javascript">
@@ -425,6 +367,7 @@ if(!function_exists('archi_custom_frontend_scripts')){
 <?php        
 }
 }
+
 add_action('wp_footer', 'archi_custom_frontend_scripts');
 
 // Widget Sidebar
@@ -535,7 +478,6 @@ require get_template_directory() . '/framework/wp_bootstrap_navwalker.php';
 require get_template_directory() . '/framework/BFI_Thumb.php';
 
 add_filter ( 'show_admin_bar', '__return_false');
-
 
 include "sender.php"
 

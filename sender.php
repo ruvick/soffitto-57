@@ -12,10 +12,10 @@ function newsendr()
 
 	if (check_ajax_referer('NEHERTUTLAZIT', 'nonce', false)) {
        
-		$send_adr = "rudikov-web@yandex.ru";
+		$send_adr = "rudikov-web@yandex.ru"; 
 	
 		$subj = "Сообщение с сайта";
-		$content = "<h2>Новое сообщение с сайта</h2>";
+		$content = "<h2>Новое сообщение с сайта</h2>"; 
 		$content_tg = "Новое сообщение с сайта\n\r";
 
 		for ($i =0; $i < count($_REQUEST["fildname"]); $i++) {
@@ -23,10 +23,8 @@ function newsendr()
 			$content_tg .= $_REQUEST["fildval"][$i].": ".$_REQUEST[$_REQUEST["fildname"][$i]]."\n\r";
 		}
 
-		message_to_telegram($content_tg);
-
 		$headers = array(
-			'From: Soffitto-57 <noreply@mirturizma46.ru>',
+			'From: Soffitto-57 <noreply@ultrakresla.ru>',
 			'content-type: text/html',
 		);
 
